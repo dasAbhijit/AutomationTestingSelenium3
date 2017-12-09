@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" parallel="none">
+  <listeners>
+    <listener class-name="utilities.Listeners"/>
+  </listeners>
+  <test name="Test1(failed)" parallel="none">
+    <classes>
+      <class name="tests.TestDemo">
+        <methods>
+          <include name="afterSuitDriver"/>
+          <include name="setUp"/>
+          <include name="basePageNavigation"/>
+          <include name="teardown"/>
+        </methods>
+      </class> <!-- tests.TestDemo -->
+    </classes>
+  </test> <!-- Test1(failed) -->
+</suite> <!-- Failed suite [Suite] -->
