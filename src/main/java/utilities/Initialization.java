@@ -39,7 +39,7 @@ public class Initialization {
 		FileInputStream file = null;
 		
 		//Logger configuration
-		DOMConfigurator.configure("D:\\Workspace\\SeleniumTestFramework\\src\\main\\resources\\utilities\\log4j.xml");
+		DOMConfigurator.configure(".\\src\\main\\resources\\utilities\\log4j.xml");
 
 		
 		//load property file
