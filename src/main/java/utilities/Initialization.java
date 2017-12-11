@@ -25,7 +25,8 @@ public class Initialization {
 	public static WebDriver driver;
 	public static ExtentReports extent;
 	public static ExtentTest test;
-	
+	public static Properties prop;
+
 	
 	public  static WebDriver getDriver() {
 		if(driver==null) {
@@ -35,34 +36,35 @@ public class Initialization {
 	}
 	private static WebDriver initializeDriver() {
 		
-		Properties prop = new Properties();
-		FileInputStream file = null;
-		
 		//Logger configuration
 		DOMConfigurator.configure(".\\src\\main\\resources\\utilities\\log4j.xml");
-
-		
 		//load property file
-		try {
-			file = new FileInputStream(".\\src\\main\\resources\\utilities\\Initialization.properties");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			LOGGER.error("Properties File Not Found");
-		}
-		try {
-			prop.load(file);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			LOGGER.error("Properties File Could not be loaded");
-		}
-		
+		setUpProperties();
 		//select browser - Chrome , Firefox ,IE
+		selectBrowser();
+		//setting wait property
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		LOGGER.debug("Implicit wait property set");
+		//setup Extent Report
+		setUpExtentReport();
+		//return driver object
+		return driver;
+	}
+	
+	public static String getScreenshot(String result) throws IOException
+	{
+		File src=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		String dest = System.getProperty("user.dir") +"\\ErrorScreenshots\\"+result+".png";
+		FileUtils.copyFile(src, new File(dest));
+		return dest;
+	}
+
+	public static void selectBrowser() {
 		if (prop.getProperty("browser").equals("chrome")) {
 			System.setProperty("webdriver.chrome.driver", ".\\src\\main\\resources\\utilities\\chromedriver.exe");		
 			LOGGER.debug("Chrome Driver Property got set");
 			driver = new ChromeDriver();
 			LOGGER.debug("Chrome Driver Created");
-			
 		}
 		if (prop.getProperty("browser").equals("firefox")) {
 			System.setProperty("webdriver.gecko.driver", ".\\src\\main\\resources\\utilities\\geckodriver.exe");
@@ -76,30 +78,26 @@ public class Initialization {
 			driver = new InternetExplorerDriver();
 			LOGGER.debug("IE Driver Created");
 		}
-		
-		//setting wait property
-		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-		LOGGER.debug("Implicit wait property set");
-				
-		//setup Extenreport
-		setUPExtentReport();
-		
-		//return driver object
-		return driver;
 	}
 	
-	public static String getScreenshot(String result) throws IOException
-	{
-		File src=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		String dest = System.getProperty("user.dir") +"\\ErrorScreenshots\\"+result+".png";
-		FileUtils.copyFile(src, new File(dest));
-		return dest;
+	public static void setUpProperties() {
+		prop = new Properties();
+		FileInputStream file = null;
+		try {
+			file = new FileInputStream(".\\src\\main\\resources\\utilities\\Initialization.properties");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			LOGGER.error("Properties File Not Found");
+		}
+		try {
+			prop.load(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			LOGGER.error("Properties File Could not be loaded");
+		}
 	}
-
-
 	
-	public static void setUPExtentReport() {
-			
+	public static void setUpExtentReport() {
 		extent = new ExtentReports (System.getProperty("user.dir") +"/test-output/STMExtentReport.html", true);
         extent.loadConfig(new File(System.getProperty("user.dir")+"\\extent-config.xml"));
 		

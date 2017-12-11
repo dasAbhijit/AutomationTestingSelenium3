@@ -2,12 +2,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="none">
  <listeners>
-         <listener class-name="utilities.Listeners"/>
+         <listener class-name="utilities.ExtentReportListeners"/>
  </listeners>
 
     <test name="Test1">
     <classes>
-      <class name="tests.TestDemo"/>
+      <class name="tests.LandingPageTests"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
