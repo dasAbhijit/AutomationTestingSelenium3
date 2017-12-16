@@ -5,9 +5,9 @@
          <listener class-name="utilities.ExtentReportListeners"/>
  </listeners>
 
-    <test name="Test1">
+  <test name="Test1">
     <classes>
-      <class name="tests.LandingPageTests"/>
+      <class name="tests.HomePageTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

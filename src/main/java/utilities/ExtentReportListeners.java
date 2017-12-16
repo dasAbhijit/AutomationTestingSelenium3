@@ -31,18 +31,19 @@ public class ExtentReportListeners implements ITestListener  {
 		try {
 			 
 			if(result.getStatus() == ITestResult.FAILURE){
-				Initialization.test.log(LogStatus.FAIL, "Test Case Failed is "+result.getName());
-				Initialization.test.log(LogStatus.FAIL, "Test Case Failed is "+result.getThrowable());
+				Initialization.test.log(LogStatus.INFO, "Test Class : "+result.getTestClass().getName());
+				Initialization.test.log(LogStatus.INFO, "Test Method : "+result.getName());
+				Initialization.test.log(LogStatus.FAIL, "Test Case Failed : "+result.getThrowable());
 				if (Initialization.prop.getProperty("screenshotOnFail").equals("True")) {
 					//To capture screenshot path and store the path of the screenshot in the string "screenshotPath"
 		            //We do pass the path captured by this mehtod in to the extent reports using "logger.addScreenCapture" method. 			
 		            String screenshotPath = Initialization.getScreenshot(result.getName());
 					//To add it in the extent report 
-		            Initialization.test.log(LogStatus.FAIL, Initialization.test.addScreenCapture(screenshotPath));
+		            Initialization.test.log(LogStatus.INFO, Initialization.test.addScreenCapture(screenshotPath));
 				}
 			}else
 			{
-				Initialization.test.log(LogStatus.SKIP, "Test Case Ended Enexpectedly "+result.getName());
+				Initialization.test.log(LogStatus.SKIP, "Test Case Ended Un-expectedly "+result.getName());
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -54,15 +55,16 @@ public class ExtentReportListeners implements ITestListener  {
 	public void onTestSkipped(ITestResult arg0) {
 		// TODO Auto-generated method stub
 		Initialization.test = Initialization.extent.startTest(arg0.getName());
-		Initialization.test.log(LogStatus.SKIP, "Test Case " + arg0.getName() + " is Skipped " );
+		Initialization.test.log(LogStatus.INFO, "Test Class :" +arg0.getTestClass().getName());
+		Initialization.test.log(LogStatus.INFO, "Test Method : " + arg0.getName());
+		Initialization.test.log(LogStatus.SKIP, "Test Skipped ");
 		Initialization.extent.flush();
 		Initialization.extent.endTest(Initialization.test);
 		
 	}
 
 	public void onTestStart(ITestResult arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	public void onTestSuccess(ITestResult result) {
@@ -71,15 +73,18 @@ public class ExtentReportListeners implements ITestListener  {
 		try {
 			 
 			if(result.getStatus() == ITestResult.SUCCESS){
-				Initialization.test.log(LogStatus.PASS, "Test Case Passed is "+result.getName());
+				Initialization.test.log(LogStatus.INFO, "Test Class : "+result.getTestClass().getName());
+				Initialization.test.log(LogStatus.INFO, "Test Method : "+result.getName());
+				Initialization.test.log(LogStatus.PASS, "Test Passed ");
 				if (Initialization.prop.getProperty("screenshotOnPass").equals("True")) {
 					//To capture screenshot path and store the path of the screenshot in the string "screenshotPath"
 		            //We do pass the path captured by this mehtod in to the extent reports using "logger.addScreenCapture" method. 			
 		            String screenshotPath = Initialization.getScreenshot(result.getName());
 					//To add it in the extent report 
-		            Initialization.test.log(LogStatus.PASS, Initialization.test.addScreenCapture(screenshotPath));
+		            Initialization.test.log(LogStatus.INFO, Initialization.test.addScreenCapture(screenshotPath));
 				}
-			}else
+			}
+			else
 			{
 				Initialization.test.log(LogStatus.SKIP, "Test Case Ended Enexpectedly "+result.getName());
 			}

@@ -19,6 +19,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 public class Initialization {
 	public static final Logger LOGGER = Logger.getLogger(Initialization.class.getName());
@@ -51,13 +52,7 @@ public class Initialization {
 		return driver;
 	}
 	
-	public static String getScreenshot(String result) throws IOException
-	{
-		File src=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		String dest = System.getProperty("user.dir") +"\\ErrorScreenshots\\"+result+".png";
-		FileUtils.copyFile(src, new File(dest));
-		return dest;
-	}
+	
 
 	public static void selectBrowser() {
 		if (prop.getProperty("browser").equals("chrome")) {
@@ -100,6 +95,24 @@ public class Initialization {
 	public static void setUpExtentReport() {
 		extent = new ExtentReports (System.getProperty("user.dir") +"/test-output/STMExtentReport.html", true);
         extent.loadConfig(new File(System.getProperty("user.dir")+"\\extent-config.xml"));
-		
+	}
+	
+	public static String getScreenshot(String result) throws IOException
+	{
+		File src=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		String dest = System.getProperty("user.dir") +"\\ErrorScreenshots\\"+result+".png";
+		FileUtils.copyFile(src, new File(dest));
+		return dest;
+	}
+	
+	public static void logScreenshot(String testName) {
+		String screenshotPath = null;
+		try {
+			screenshotPath = Initialization.getScreenshot(testName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//To add it in the extent report 
+        test.log(LogStatus.INFO,test.addScreenCapture(screenshotPath));
 	}
 }
