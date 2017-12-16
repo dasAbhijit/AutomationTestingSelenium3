@@ -87,6 +87,10 @@ public class HomePage {
     private final String pageLoadedText = "Aliquam hendrit rutrum iaculis nullam ondimentum maluada velit beum donec sit amet";
 
     private final String pageUrl = "http://demoqa.com/";
+    
+    public String getPageUrl() {
+		return pageUrl;
+	}
 
     @FindBy(css = "#post-9 div.entry-content div:nth-of-type(1) div.detail-entry p:nth-of-type(1) a")
     @CacheLookup

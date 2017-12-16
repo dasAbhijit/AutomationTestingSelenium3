@@ -72,7 +72,11 @@ public class AboutUsPage {
 
     private final String pageUrl = "/about-us/";
 
-    @FindBy(css = "a[href='http://oneiricindia.com/']")
+    public String getPageUrl() {
+		return pageUrl;
+	}
+
+	@FindBy(css = "a[href='http://oneiricindia.com/']")
     @CacheLookup
     private WebElement poweredByOneiricTechSolutionsPvt;
 

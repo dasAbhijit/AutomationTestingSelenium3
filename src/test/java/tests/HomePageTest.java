@@ -1,16 +1,10 @@
 package tests;
 
-import org.apache.log4j.Logger;
 import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import com.relevantcodes.extentreports.LogStatus;
-
 import pageObjects.AboutUsPage;
 import pageObjects.BlogPage;
 import pageObjects.ContactPage;
@@ -22,7 +16,6 @@ import utilities.Initialization;
 
 public class HomePageTest {
 	
-	public static Logger logger = Logger.getLogger(HomePageTest.class.getName());
 	WebDriver driver;
 	Boolean condition;
 	HomePage hp;
@@ -33,7 +26,6 @@ public class HomePageTest {
 	public void setUp() {
 		driver = Initialization.getDriver();
 		driver.get(Initialization.prop.getProperty("url"));
-		logger.info("Targer URL Reached");
 		hp = new HomePage(driver);
 	}
 	
@@ -111,9 +103,8 @@ public class HomePageTest {
 	
 	
 	@AfterClass
-	public void afterSuitDriver() {
-		driver.close();
-		driver=null;
+	public void afterClassDriver() {
+		
 	}
 
 }

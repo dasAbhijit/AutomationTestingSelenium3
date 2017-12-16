@@ -12,6 +12,8 @@ public class ExtentReportListeners implements ITestListener  {
 
 	public void onFinish(ITestContext arg0) {
 		Initialization.extent.close();
+		Initialization.driver.close();
+		Initialization.driver = null;
 	}
 
 	public void onStart(ITestContext arg0) {

@@ -91,6 +91,10 @@ public class ContactPage {
     private final String pageLoadedText = "The Selenium project produces various tools for automation testing such as Selenium IDE, Selenium Remote Control (RC), Selenium Grid and Selenium 2";
 
     private final String pageUrl = "/contact/";
+    
+    public String getPageUrl() {
+		return pageUrl;
+	}
 
     @FindBy(css = "a[href='http://oneiricindia.com/']")
     @CacheLookup

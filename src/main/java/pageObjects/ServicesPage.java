@@ -73,6 +73,10 @@ public class ServicesPage {
     private final String pageLoadedText = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using ‘lorem ipsum’ is that it has a more-or-less normal distribution of letters, as opposed to using ‘This here is content’ or ‘Osama Bin Laden wanted dead or alive’, making it look like readable text and there also has been many examples what has happened if someone has forgotten to change the dummy text for the final copywrite text.";
 
     private final String pageUrl = "/services/";
+    
+    public String getPageUrl() {
+		return pageUrl;
+	}
 
     @FindBy(css = "a[href='http://oneiricindia.com/']")
     @CacheLookup
